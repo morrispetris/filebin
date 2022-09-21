@@ -225,7 +225,8 @@ func main() {
 	templateBox = rice.MustFindBox("templates")
 
 	log.Println("Listen host: " + cfg.Host)
-	log.Println("Listen port: " + strconv.Itoa(cfg.Port))
+	//log.Println("Listen port: " + strconv.Itoa(cfg.Port))
+	log.Println("Listen port: " + os.Getenv("PORT"))
 	log.Println("Read timeout: " +
 		strconv.Itoa(cfg.ReadTimeout) + " seconds")
 	log.Println("Write timeout: " +
@@ -364,7 +365,8 @@ func main() {
 	logRouter := handlers.CombinedLoggingHandler(accessLogWriter, router)
 
 	server := &http.Server{
-		Addr:           cfg.Host + ":" + strconv.Itoa(cfg.Port),
+		//Addr:           cfg.Host + ":" + strconv.Itoa(cfg.Port),
+		Addr:           cfg.Host + ":" + os.Getenv("PORT"),
 		Handler:        logRouter,
 		ReadTimeout:    time.Duration(cfg.ReadTimeout) * time.Second,
 		WriteTimeout:   time.Duration(cfg.WriteTimeout) * time.Second,
